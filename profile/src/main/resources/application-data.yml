@@ -1,0 +1,23 @@
+data:
+  number: 7992394463
+  password: password
+  profile1:
+    id: 1
+    email: shahwezjob+1@gmail.com
+    name: Shahwez
+    dob: 1999-03-13
+  profile2:
+    id: 2
+    email: shahwezjob+2@gmail.com
+    name: Mohammad Shahwez
+    dob: 1999-03-13
+  profile3:
+    id: 3
+    email: shahwezjob+3@gmail.com
+    name: Mohammad Shahnawaz
+    dob: 2000-01-01
+  profile4:
+    id: 4
+    email: shahwezjob+4@gmail.com
+    name: Mohammad Shahbaz
+    dob: 2000-02-02

@@ -1,0 +1,38 @@
+server:
+  port: 8001
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/dummy
+    username: postgres
+    password: A@65_b#98
+    ddl-auto: update
+
+#spring:
+#  datasource:
+#    url: r2dbc:h2:mem://./testdb;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+#    driverClassName: org.h2.Driver
+#    username: sa
+#    password:
+#  r2dbc:
+#    database-platform: org.r2dbc.dialect.H2Dialect
+#    url: r2dbc:h2:mem://./testdb
+#    ddl-auto: update
+#    username:
+#    password:
+#  h2:
+#    console:
+#      enabled: true
+
+SUCCESS: SUCCESS
+FAILURE: FAILURE
+MESSAGE:
+  SUCCESS:
+    POST: PROFILE SUCCESSFULLY CREATED
+    GET: PROFILE SUCCESSFULLY FOUND
+    PUT: PROFILE SUCCESSFULLY UPDATED
+  FAILURE:
+    POST: PROFILE NOT CREATED
+    GET: PROFILE NOT FOUND
+    PUT: PROFILE NOT UPDATED
+EXCEPTION:
+  NOT_FOUND: REQUESTED RESOURCE NOT FOUND
