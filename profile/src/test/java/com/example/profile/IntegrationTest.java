@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureWebTestClient
 @ActiveProfiles({"test", "strings", "data"})
-public class IntegrationTest {
+class IntegrationTest {
     @Autowired
     ProfileController profileController;
     @Autowired
@@ -47,7 +47,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void check1() {
+    void check1() {
         webTestClient.get().uri("http://localhost:8080/profile/get/"+ email1)
                 .exchange()
                 .expectStatus().isFound()
@@ -61,7 +61,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void check2() {
+    void check2() {
         webTestClient.get().uri("http://localhost:8080/profile/get/"+ email1.replace("1", "4"))
                 .exchange()
                 .expectStatus().isNotFound()

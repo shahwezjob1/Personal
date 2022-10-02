@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @Slf4j
 @ExtendWith({MockitoExtension.class})
-public class ProfileServiceImplTest {
+class ProfileServiceImplTest {
     //@Value("${data.profile3.email}")
     private static String email3 = "shahwezjob+3@gmail.com";
     //@Value("${data.profile3.id}")
@@ -57,7 +57,7 @@ public class ProfileServiceImplTest {
 //    }
 
     @Test
-    public void checkGetProfile() {
+    void checkGetProfile() {
         Profile profile = new Profile(id3, email3, password, name3, dob3, number);
         Mono<Profile> profileMono = Mono.just(profile);
         when(profileRepository.findByEmail(email3)).thenReturn(profileMono);
@@ -71,13 +71,13 @@ public class ProfileServiceImplTest {
     }
 
     @Test
-    public void checkGetProfileNotFound() {
+    void checkGetProfileNotFound() {
         when(profileRepository.findByEmail(email3)).thenReturn(Mono.empty());
         profileService.getProfile(email3).as(StepVerifier::create).expectError(NotFoundException.class).verify();
     }
 
     @Test
-    public void checkGetAll() {
+    void checkGetAll() {
         Profile profile = new Profile(id3, email3, password, name3, dob3, number);
         Flux<Profile> profileFlux = Flux.just(profile, profile, profile);
         ProfileDto profileDto = ProfileUtil.domainToDto(profile);
@@ -90,7 +90,7 @@ public class ProfileServiceImplTest {
     }
 
     @Test
-    public void checkGetAllNotFound(){
+    void checkGetAllNotFound(){
         when(profileRepository.findAll()).thenReturn(Flux.empty());
         profileService.getAll().as(StepVerifier::create).expectError(NotFoundException.class).verify();
     }

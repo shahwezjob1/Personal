@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @Slf4j
 @ActiveProfiles({"strings", "data"})
 @WebFluxTest(ProfileController.class)
-public class ProfileControllerTest {
+class ProfileControllerTest {
     @MockBean
     ProfileService profileService;
     @Autowired
@@ -51,7 +51,7 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void checkGetProfile() throws Exception {
+    void checkGetProfile() throws Exception {
         ProfileDto profileDto = new ProfileDto(email1, name1, dob1, number);
         when(profileService.getProfile(email1)).thenReturn(Mono.just(profileDto));
         webTestClient.get().uri("/profile/get/"+ email1).exchange()
@@ -67,7 +67,7 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void checkGetProfileNotFound() throws Exception {
+    void checkGetProfileNotFound() throws Exception {
         when(profileService.getProfile(email1)).thenReturn(Mono.error(new NotFoundException()));
         webTestClient.get().uri("/profile/get/"+ email1).exchange()
                 .expectStatus().isNotFound()
@@ -79,7 +79,7 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void checkGetProfileException() throws Exception {
+    void checkGetProfileException() throws Exception {
         when(profileService.getProfile(email1)).thenReturn(Mono.error(new Exception("exception")));
         webTestClient.get().uri("/profile/get/"+ email1).exchange()
                 .expectStatus().is5xxServerError()

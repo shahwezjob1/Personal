@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Slf4j
 @DataR2dbcTest
 @ActiveProfiles({"test", "data"})
-public class RepoTest {
+class RepoTest {
     private static Integer id3;
     private static String number;
     private static String email3;
@@ -54,7 +54,7 @@ public class RepoTest {
     }
 
     @Test
-    public void checkSaveNew() throws InterruptedException {
+    void checkSaveNew() throws InterruptedException {
         profileRepository.save(profile1).as(StepVerifier::create).consumeNextWith(profile -> {
             assertEquals(id3, profile.getId());
             assertEquals(email3, profile.getEmail());
@@ -75,7 +75,7 @@ public class RepoTest {
 
 
     @Test
-    public void checkSaveOld() throws InterruptedException {
+    void checkSaveOld() throws InterruptedException {
         profileRepository.save(profile2).as(StepVerifier::create).consumeNextWith(profile -> {
             assertEquals(id3, profile.getId());
             assertEquals(email3, profile.getEmail());
