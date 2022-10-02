@@ -16,10 +16,6 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<!-- JaCoCo Properties -->
-<!--		<sonar.coverage.jacoco.xmlReportPaths>-->
-<!--			../app-it/target/site/jacoco-aggregate/jacoco.xml-->
-<!--		</sonar.coverage.jacoco.xmlReportPaths>-->
 	</properties>
 
 	<dependencies>
@@ -73,14 +69,6 @@
 		</dependency>
 
 <!--		TEST-->
-
-<!--		JACOCO-->
-<!--		<dependency>-->
-<!--			<groupId>org.jacoco</groupId>-->
-<!--			<artifactId>jacoco-maven-plugin</artifactId>-->
-<!--			<version>0.8.5</version>-->
-<!--		</dependency>-->
-<!--		JACOCO-->
 
 	</dependencies>
 

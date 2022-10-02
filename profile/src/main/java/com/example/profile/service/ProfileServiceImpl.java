@@ -27,7 +27,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Flux<ProfileDto> getAll() {
-        log.info(String.format("ProfileServiceImpl.getAll()"));
+        log.info("ProfileServiceImpl.getAll()");
         return profileRepository
                 .findAll()
                 .map(ProfileUtil::domainToDto)

@@ -35,7 +35,7 @@ public class ProfileController {
 
     @GetMapping(value = "/get/all", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ProfileDto> getAll(){
-        log.info(String.format("ProfileController.getAll()"));
+        log.info("ProfileController.getAll()");
         return profileService.getAll() ;
     }
 }
