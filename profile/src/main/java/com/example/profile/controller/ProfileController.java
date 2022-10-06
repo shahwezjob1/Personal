@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("/profile")
@@ -22,8 +24,8 @@ public class ProfileController {
     private ProfileService profileService;
     @Value("${MESSAGE.SUCCESS.GET}")
     private String GET_SUCCESS_MESSAGE;
-    @Value("${MESSAGE.FAILURE.GET}")
-    private String GET_FAILURE_MESSAGE;
+    @Value("${MESSAGE.SUCCESS.PUT}")
+    private String PUT_SUCCESS_MESSAGE;
 
     @GetMapping("/get/{email}")
     public Mono<ResponseEntity<Object>> getProfile(@PathVariable("email") String email) {
@@ -37,5 +39,13 @@ public class ProfileController {
     public Flux<ProfileDto> getAll(){
         log.info("ProfileController.getAll()");
         return profileService.getAll() ;
+    }
+
+    @PutMapping("/put")
+    public Mono<ResponseEntity<Object>> putProfile(@RequestBody @Valid  ProfileDto profileDto){
+        log.info(String.format("ProfileController.putProfile(%s)", profileDto.toString()));
+        return profileService
+                .putProfile(profileDto)
+                .map(aBoolean -> ResponseHandler.generateResponse(HttpStatus.OK, PUT_SUCCESS_MESSAGE, null));
     }
 }

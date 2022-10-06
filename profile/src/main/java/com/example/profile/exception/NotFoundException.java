@@ -6,13 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j
-@NoArgsConstructor
 public class NotFoundException extends RuntimeException{
-    //@Value("${EXCEPTION.NOT_FOUND}")
-    private static String message = "REQUESTED RESOURCE NOT FOUND";
+    private static final String MESSAGE = "REQUESTED RESOURCE NOT FOUND";
+
+    public NotFoundException(){
+        log.info("NotFoundException");
+    }
 
     @Override
     public String getMessage(){
-        return message;
+        return MESSAGE;
     }
 }

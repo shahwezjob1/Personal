@@ -11,6 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class Profile {
     @Id
     private Integer id;

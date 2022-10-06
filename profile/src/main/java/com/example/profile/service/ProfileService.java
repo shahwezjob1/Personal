@@ -8,4 +8,5 @@ import reactor.core.publisher.Mono;
 public interface ProfileService {
     public Mono<ProfileDto> getProfile(String email);
     public Flux<ProfileDto> getAll();
+    public Mono<Boolean> putProfile(ProfileDto profileDto);
 }

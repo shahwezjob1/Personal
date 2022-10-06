@@ -3,6 +3,7 @@ package com.example.profile.service;
 import com.example.profile.domain.Profile;
 import com.example.profile.dto.ProfileDto;
 import com.example.profile.exception.NotFoundException;
+import com.example.profile.exception.PartialDataException;
 import com.example.profile.repository.ProfileRepository;
 import com.example.profile.util.ProfileUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import reactor.test.StepVerifier;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @Slf4j
 @ExtendWith({MockitoExtension.class})
@@ -90,9 +91,48 @@ class ProfileServiceImplTest {
     }
 
     @Test
-    void checkGetAllNotFound(){
+    void checkGetAllNotFound() {
         when(profileRepository.findAll()).thenReturn(Flux.empty());
         profileService.getAll().as(StepVerifier::create).expectError(NotFoundException.class).verify();
     }
 
+    @Test
+    void checkPutNotFound() {
+        when(profileRepository.findByEmail(email3)).thenReturn(Mono.empty());
+        profileService.putProfile(new ProfileDto(email3, null, null, null))
+                .as(StepVerifier::create)
+                .expectError(NotFoundException.class)
+                .verify();
+        verify(profileRepository, times(1)).findByEmail(email3);
+        verify(profileRepository, times(0)).save(any());
+    }
+
+    @Test
+    void checkPutPartialData() {
+        when(profileRepository.findByEmail(email3))
+                .thenReturn(Mono.just(new Profile(id3, email3, password, null, null, number)));
+        profileService.putProfile(new ProfileDto(email3, null, null, null))
+                .as(StepVerifier::create)
+                .expectError(PartialDataException.class)
+                .verify();
+        verify(profileRepository, times(1)).findByEmail(email3);
+        verify(profileRepository, times(0)).save(any());
+    }
+
+    @Test
+    void checkPutTrue() {
+        when(profileRepository.findByEmail(email3))
+                .thenReturn(Mono.just(new Profile(id3, email3, password, name3, dob3, number)));
+        when(profileRepository.save(new Profile(id3, email3, password, "shah", dob3, number)))
+                .thenReturn(Mono.just(new Profile(id3, email3, password, "shah", dob3, number)));
+        profileService.putProfile(new ProfileDto(email3, "shah", null, null))
+                .as(StepVerifier::create)
+                .consumeNextWith(aBoolean -> {
+                    assertEquals(true, aBoolean);
+                })
+                .verifyComplete();
+        verify(profileRepository, times(1)).findByEmail(email3);
+        verify(profileRepository, times(1)).save(any());
+        verify(profileRepository, times(1)).save(new Profile(id3, email3, password, "shah", dob3, number));
+    }
 }
